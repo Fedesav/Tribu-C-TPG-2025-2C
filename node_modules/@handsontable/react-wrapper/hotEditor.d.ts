@@ -1,0 +1,33 @@
+import { DependencyList, FC, MutableRefObject, ReactNode, Ref, RefObject } from 'react';
+import Handsontable from 'handsontable/base';
+import { HotEditorHooks, UseHotEditorImpl } from './types';
+/**
+ * Create a class to be passed to the Handsontable's settings.
+ *
+ * @param {RefObject<HotEditorHooks>} hooksRef Reference to component-based editor overridden hooks object.
+ * @param {RefObject} instanceRef Reference to Handsontable-native custom editor class instance.
+ * @returns {Function} A class to be passed to the Handsontable editor settings.
+ */
+export declare function makeEditorClass(hooksRef: MutableRefObject<HotEditorHooks | null>, instanceRef: MutableRefObject<Handsontable.editors.BaseEditor | null>): typeof Handsontable.editors.BaseEditor;
+interface EditorContextProviderProps {
+    hooksRef: Ref<HotEditorHooks>;
+    hotCustomEditorInstanceRef: RefObject<Handsontable.editors.BaseEditor>;
+    children: ReactNode;
+}
+/**
+ * Provider of the context that exposes Handsontable-native editor instance and passes hooks object
+ * for custom editor components.
+ *
+ * @param {Ref} hooksRef Reference for component-based editor overridden hooks object.
+ * @param {RefObject} hotCustomEditorInstanceRef  Reference to Handsontable-native editor instance.
+ */
+export declare const EditorContextProvider: FC<EditorContextProviderProps>;
+/**
+ * Hook that allows encapsulating custom behaviours of component-based editor by customizing passed ref with overridden hooks object.
+ *
+ * @param {HotEditorHooks} overriddenHooks Overrides specific for the custom editor.
+ * @param {DependencyList} deps Overridden hooks object React dependency list.
+ * @returns {UseHotEditorImpl} Editor API methods
+ */
+export declare function useHotEditor<T>(overriddenHooks?: HotEditorHooks, deps?: DependencyList): UseHotEditorImpl<T>;
+export {};
